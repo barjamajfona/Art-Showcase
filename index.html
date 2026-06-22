@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Showcase - Master Artists</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --border-color: #bdc3c7;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+            min-height: calc(100vh - 400px);
+        }
+
+        /* Artist Section */
+        .artist-section {
+            margin-bottom: 80px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .artist-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .artist-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .artist-bio {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Paintings Grid */
+        .paintings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Painting Card */
+        .painting-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .painting-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .painting-image {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            background-color: var(--light-bg);
+        }
+
+        .painting-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .painting-card:hover .painting-image img {
+            transform: scale(1.05);
+        }
+
+        .painting-info {
+            padding: 25px;
+        }
+
+        .painting-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .year {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 0;
+            }
+
+            .nav-link {
+                flex: 1;
+                min-width: 150px;
+                padding: 12px 15px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            .artist-header h2 {
+                font-size: 2rem;
+            }
+
+            .paintings-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .painting-image {
+                height: 250px;
+            }
+
+            main {
+                padding: 40px 0;
+            }
+
+            .artist-section {
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .nav-link {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+
+            .artist-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .artist-bio {
+                font-size: 1rem;
+            }
+
+            .painting-info h3 {
+                font-size: 1.3rem;
+            }
+
+            .painting-info {
+                padding: 20px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎨 Art Showcase</h1>
+            <p class="subtitle">Exploring the Masterpieces of Legendary Artists</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#leonardo" class="nav-link">Leonardo da Vinci</a></li>
+                <li><a href="#michelangelo" class="nav-link">Michelangelo</a></li>
+                <li><a href="#vangogh" class="nav-link">Vincent van Gogh</a></li>
+                <li><a href="#picasso" class="nav-link">Pablo Picasso</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <!-- Leonardo da Vinci Section -->
+            <section id="leonardo" class="artist-section">
+                <div class="artist-header">
+                    <h2>Leonardo da Vinci</h2>
+                    <p class="artist-bio">Italian polymath of the Renaissance. Master of painting, sculpture, architecture, and science. Leonardo is known for his incredible attention to detail and ability to capture human emotion.</p>
+                </div>
+                <div class="paintings-grid">
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg" alt="Mona Lisa">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Mona Lisa</h3>
+                            <p class="year"><strong>Year:</strong> 1503-1519</p>
+                            <p class="subject"><strong>Subject:</strong> Portrait of Lisa Gherardini, wife of a Florentine merchant. Famous for her enigmatic smile.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Last Supper">
+                        </div>
+                        <div class="painting-info">
+                            <h3>The Last Supper</h3>
+                            <p class="year"><strong>Year:</strong> 1495-1498</p>
+                            <p class="subject"><strong>Subject:</strong> Jesus Christ's final meal with his apostles before his crucifixion. A masterpiece of perspective and composition.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/1566_School_of_Athens.jpg" alt="Virgin of the Rocks">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Virgin of the Rocks</h3>
+                            <p class="year"><strong>Year:</strong> 1483-1486</p>
+                            <p class="subject"><strong>Subject:</strong> The Virgin Mary with infant Jesus and John the Baptist. Showcases Leonardo's mastery of light and shadow (sfumato).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Michelangelo Section -->
+            <section id="michelangelo" class="artist-section">
+                <div class="artist-header">
+                    <h2>Michelangelo</h2>
+                    <p class="artist-bio">Italian Renaissance master known for his extraordinary sculptural and painterly skills. His works display unparalleled anatomical accuracy and emotional depth. A central figure of the High Renaissance.</p>
+                </div>
+                <div class="paintings-grid">
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Michelangelo_-_Creation_of_Adam.jpg" alt="The Creation of Adam">
+                        </div>
+                        <div class="painting-info">
+                            <h3>The Creation of Adam</h3>
+                            <p class="year"><strong>Year:</strong> 1511-1512</p>
+                            <p class="subject"><strong>Subject:</strong> God bestowing life upon Adam, the first man. Part of the Sistine Chapel ceiling. One of the most iconic images in art history.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Michelangelo%2C_Sistine_Chapel_ceiling_%281508-12%29_-_God_dividing_the_waters_from_the_earth.jpg" alt="God Separating Light from Darkness">
+                        </div>
+                        <div class="painting-info">
+                            <h3>God Separating Light from Darkness</h3>
+                            <p class="year"><strong>Year:</strong> 1511-1512</p>
+                            <p class="subject"><strong>Subject:</strong> The moment of creation as God separates day from night. Demonstrates divine power and cosmic energy.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Michelangelo%2C_Sistine_Chapel_ceiling_%281508-12%29_-_Creation_of_the_Sun_and_the_Moon.jpg" alt="Creation of the Sun and Moon">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Creation of the Sun and Moon</h3>
+                            <p class="year"><strong>Year:</strong> 1511-1512</p>
+                            <p class="subject"><strong>Subject:</strong> God creating the celestial bodies. Part of the Sistine Chapel series showing the divine creation narrative.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vincent van Gogh Section -->
+            <section id="vangogh" class="artist-section">
+                <div class="artist-header">
+                    <h2>Vincent van Gogh</h2>
+                    <p class="artist-bio">Dutch Post-Impressionist painter known for his bold use of color and expressive brushstrokes. His unique style and emotional intensity have made him one of the most influential artists of all time.</p>
+                </div>
+                <div class="paintings-grid">
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="The Starry Night">
+                        </div>
+                        <div class="painting-info">
+                            <h3>The Starry Night</h3>
+                            <p class="year"><strong>Year:</strong> 1889</p>
+                            <p class="subject"><strong>Subject:</strong> A swirling night sky over a village. One of van Gogh's most recognized works, painted from memory while at an asylum in Saint-Rémy.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Vincent_van_Gogh_-_Sunflowers_-_National_Gallery_London.jpg" alt="Sunflowers">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Sunflowers</h3>
+                            <p class="year"><strong>Year:</strong> 1889</p>
+                            <p class="subject"><strong>Subject:</strong> A vibrant bouquet of sunflowers in a vase. Represents hope and endurance, showcasing van Gogh's signature bold yellows and textures.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Irises_by_Vincent_van_Gogh.JPG/560px-Irises_by_Vincent_van_Gogh.JPG" alt="Irises">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Irises</h3>
+                            <p class="year"><strong>Year:</strong> 1890</p>
+                            <p class="subject"><strong>Subject:</strong> A delicate arrangement of iris flowers. Painted during his time at Saint-Paul-de-Mausole asylum, featuring his characteristic swirling style.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pablo Picasso Section -->
+            <section id="picasso" class="artist-section">
+                <div class="artist-header">
+                    <h2>Pablo Picasso</h2>
+                    <p class="artist-bio">Spanish painter and sculptor who revolutionized art with Cubism. His innovative approach to representing reality and tireless exploration of new artistic styles made him one of the most prolific and influential artists of the 20th century.</p>
+                </div>
+                <div class="paintings-grid">
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/c/c8/Les_Demoiselles_d%27Avignon.jpg" alt="Les Demoiselles d'Avignon">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Les Demoiselles d'Avignon</h3>
+                            <p class="year"><strong>Year:</strong> 1907</p>
+                            <p class="subject"><strong>Subject:</strong> Five distorted female nudes. Revolutionary work that broke from traditional perspective, pioneering Cubism and modern art.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/b/b8/Guernica.jpg" alt="Guernica">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Guernica</h3>
+                            <p class="year"><strong>Year:</strong> 1937</p>
+                            <p class="subject"><strong>Subject:</strong> A powerful anti-war statement depicting the bombing of Guernica during the Spanish Civil War. Combines Cubism with emotional intensity.</p>
+                        </div>
+                    </div>
+
+                    <div class="painting-card">
+                        <div class="painting-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Woman_with_a_Flower.jpg" alt="Woman with a Flower">
+                        </div>
+                        <div class="painting-info">
+                            <h3>Woman with a Flower</h3>
+                            <p class="year"><strong>Year:</strong> 1932</p>
+                            <p class="subject"><strong>Subject:</strong> A sensual portrait of a woman with a flower. Demonstrates Picasso's ability to blend Cubism with lyrical, intimate subjects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Art Showcase. Celebrating the masters of fine art.</p>
+            <p class="footer-note">Images sourced from Wikimedia Commons under fair use for educational purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize event listeners when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            addScrollAnimations();
+        });
+
+        /**
+         * Initialize navigation functionality
+         */
+        function initializeNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Add hover effects to painting cards
+            const paintingCards = document.querySelectorAll('.painting-card');
+            paintingCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        /**
+         * Add scroll animations for elements using Intersection Observer
+         */
+        function addScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.animation = 'fadeIn 0.6s ease-in';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const artistSections = document.querySelectorAll('.artist-section');
+            artistSections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        /**
+         * Update active navigation link based on scroll position
+         */
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.artist-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.backgroundColor = 'transparent';
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.style.backgroundColor = '#e74c3c';
+                }
+            });
+        });
+
+        // Log welcome message
+        console.log('🎨 Welcome to Art Showcase! Explore the masterpieces of legendary artists.');
+    </script>
+</body>
+</html>
